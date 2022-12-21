@@ -42,13 +42,15 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link to="/">
-                <span class="material-symbols-sharp">login</span>
+              <Link to="/" style={{borderInline : "2px solid blue", padding : "2px 6px"}}>
+                {/* <span class="material-symbols-sharp">login</span> */}
+                Login
               </Link>
             </li>
             <li>
-              <Link to="/">
-                <span class="material-symbols-sharp">logout</span>
+              <Link to="/" style={{padding : "4px 8px", backgroundColor : "blue", color : "white"}}>
+                {/* <span class="material-symbols-sharp">logout</span> */}
+                Signup
               </Link>
             </li>
           </ul>
