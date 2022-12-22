@@ -21,7 +21,7 @@ function Navbar() {
               type="text"
               name="q"
               id="q"
-              placeholder="type here to search..."
+              placeholder="type here to read..."
             />
             <input type="submit" value="Search" />
           </form>

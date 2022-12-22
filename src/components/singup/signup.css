@@ -1,0 +1,91 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.signup-form{
+    border: 1px solid blue;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 500px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    position: relative;
+    top: 70px;
+    border-radius: 10px;
+}
+.signup-form label{
+    font-size: 14px;
+    opacity: 90%;
+}
+.signup-form h3{
+    text-align: center;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: -30px;
+}
+.signup-form form{
+    margin: 40px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+.signup-form .form-group{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 90%;
+}
+.signup-form .form-group input{
+    width: 100%;
+    height: 30px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid blue;
+    font-size: 18px;
+    background-color: transparent;
+}
+.signup-form .form-group input::placeholder{
+    font-size: 14px;
+    opacity: 60%;
+}
+.signup-form .form-group input:focus{
+    border-width: 2px;
+}
+.signup-form button{
+    height: 30px;
+    outline: none;
+    border: none;
+    color: white;
+    background-color: blue;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 3px;
+    transition: background-color .1s;
+}
+.signup-form button:hover{
+    color: blue;
+    background-color: #f9f9f9;
+    border: 2px solid blue;
+}
+.signup-form button:active{
+    transform: scale(97%);
+}
+.signup-form select{
+    height: 30px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid blue;
+    
+}
+.signup-form select option{
+    height: 20px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    text-align: center;
+}

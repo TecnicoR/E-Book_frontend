@@ -62,6 +62,7 @@
 .search-form input[type=submit]:hover{
     /* border-radius: 6px; */
     border-width: 2px;
+    cursor: pointer;
 }
 .search-form input[type=submit]:active{
     transform: scale(95%);
