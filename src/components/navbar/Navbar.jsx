@@ -7,11 +7,13 @@ function Navbar() {
     <>
       <div className="header">
         <div className="left">
+        <Link to="/">
           <img
             className="logo"
             src="assets/images/logo.png"
             alt="The Last Chapter"
           />
+           </Link>
         </div>
         <div className="mid">
           <form action="" className="search-form">
@@ -28,28 +30,36 @@ function Navbar() {
           <ul className="menu">
             <li>
               <Link to="/">
-                <span class="material-symbols-sharp">home</span>
+                <img src="assets/icons/home.png" alt="Home" />
               </Link>
             </li>
             <li>
               <Link to="/cart">
-                <span class="material-symbols-sharp">shopping_cart</span>
+                <img src="assets/icons/shopping-cart.png" alt="Cart" />
               </Link>
             </li>
             <li>
-              <Link to="/">
-                <span class="material-symbols-sharp">account_circle</span>
+              <Link to="/myprofile">
+                <img src="assets/icons/user.png" alt="User" />
               </Link>
             </li>
             <li>
-              <Link to="/" style={{borderInline : "2px solid blue", padding : "2px 6px"}}>
-                {/* <span class="material-symbols-sharp">login</span> */}
+              <Link
+                to="/login"
+                style={{ borderInline: "2px solid blue", padding: "2px 6px" }}
+              >
                 Login
               </Link>
             </li>
             <li>
-              <Link to="/" style={{padding : "4px 8px", backgroundColor : "blue", color : "white"}}>
-                {/* <span class="material-symbols-sharp">logout</span> */}
+              <Link
+                to="/signup"
+                style={{
+                  padding: "4px 8px",
+                  backgroundColor: "blue",
+                  color: "white",
+                }}
+              >
                 Signup
               </Link>
             </li>

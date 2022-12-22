@@ -3,7 +3,11 @@ import './signup.css'
 
 function Signup() {
   return (
-    <div>Signup</div>
+    <>
+      <div className="signup-form">
+        <h3>Create your account</h3>
+      </div>
+    </>
   )
 }
 

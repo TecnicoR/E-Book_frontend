@@ -10,9 +10,11 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-bottom: 10px;
 }
 .logo{
-    height: 80px;
+    height: 70px;
 }
 .search-form{
     display: flex;
@@ -39,7 +41,7 @@
     background-color: transparent;
     border: none;
     outline: none;
-    border: 1px solid blue;
+    border-bottom: 1px solid blue;
     width: 85%;
     padding: 0 8px;
     font-size: 16px;
@@ -54,10 +56,15 @@
     border: 1px solid blue;
     background: transparent;
     border-radius: 2px;
-    transition: .3s;
+    /* transition-property: border-width;
+    transition: .3s; */
 }
 .search-form input[type=submit]:hover{
-    border-radius: 6px;
+    /* border-radius: 6px; */
+    border-width: 2px;
+}
+.search-form input[type=submit]:active{
+    transform: scale(95%);
 }
 .menu{
     display: flex;
@@ -70,6 +77,9 @@
     letter-spacing: 0.5px;
     position: relative;
     padding: 0 10px;
+}
+.menu li a img{
+    height: 30px;
 }
 .menu li a:hover{
     color: blue
