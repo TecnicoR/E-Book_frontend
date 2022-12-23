@@ -106,6 +106,7 @@ function Signup() {
               name="password"
               id="password"
               autoComplete="off"
+              placeholder="enter password"
             />
           </div>
           <div className="form-group">
@@ -115,6 +116,7 @@ function Signup() {
               name="confirmPassword"
               id="confirmPassword"
               autoComplete="off"
+              placeholder="confirm password"
             />
           </div>
           <div className="form-group">
