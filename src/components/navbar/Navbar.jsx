@@ -1,8 +1,11 @@
 import React from "react";
 import "./navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
 
 function Navbar() {
+  const location = useLocation().pathname;
+  console.log(location);
   return (
     <>
       <div className="header">
@@ -29,18 +32,21 @@ function Navbar() {
         <div className="right">
           <ul className="menu">
             <li>
-              <Link to="/">
+              <Link to="/"  className={location==='/'? "active" : ""}>
                 <img src="assets/icons/home.png" alt="Home" />
+                {/* <i class="fa-sharp fa-solid fa-house"></i> */}
               </Link>
             </li>
             <li>
-              <Link to="/cart">
+              <Link to="/cart"  className={location==='/cart'? "active" : ""}>
                 <img src="assets/icons/shopping-cart.png" alt="Cart" />
+                {/* <i class="fa-sharp fa-solid fa-cart-shopping"></i> */}
               </Link>
             </li>
             <li>
-              <Link to="/myprofile">
+              <Link to="/myprofile"  className={location==='/myprofile'? "active" : ""}>
                 <img src="assets/icons/user.png" alt="User" />
+                {/* <i class="fa-sharp fa-solid fa-user"></i> */}
               </Link>
             </li>
             <li>
