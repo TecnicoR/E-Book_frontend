@@ -1,0 +1,58 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.product{
+    /* border: 1px solid blue; */
+    border-radius: 10px;
+    height: 310px;
+    width: 220px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.product .image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.product .image img{
+    height: 150px;
+}
+.product .book-name{
+    font-size: 16px;
+    text-align: center;
+}
+.product hr{
+    background-color: blue;
+    width: 80%;
+    margin: auto;
+}
+.product .actions img{
+    height: 35px;
+    cursor: pointer;
+}
+.product .actions{
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+.product .price{
+    font-size: 20px;
+}
+.product .price-section{
+    display: flex;
+    align-items: center;
+    justify-content:right;
+    margin: 10px 10px;
+    gap: 10px;
+
+}
+.product .price-section img{
+    height: 16px;
+}
+.product .ratings{
+    margin: auto;
+}
