@@ -2,7 +2,6 @@ import React from "react";
 import "./navbar.css";
 import { Link, useLocation } from "react-router-dom";
 
-
 function Navbar() {
   const location = useLocation().pathname;
   console.log(location);
@@ -10,13 +9,13 @@ function Navbar() {
     <>
       <div className="header">
         <div className="left">
-        <Link to="/">
-          <img
-            className="logo"
-            src="assets/images/logo.png"
-            alt="The Last Chapter"
-          />
-           </Link>
+          <Link to="/">
+            <img
+              className="logo"
+              src="assets/images/logo.png"
+              alt="The Last Chapter"
+            />
+          </Link>
         </div>
         <div className="mid">
           <form action="" className="search-form">
@@ -32,43 +31,55 @@ function Navbar() {
         <div className="right">
           <ul className="menu">
             <li>
-              <Link to="/"  className={location==='/'? "active" : ""}>
+              <Link to="/" className={location === "/" ? "active" : ""}>
                 <img src="assets/icons/home.png" alt="Home" />
                 {/* <i class="fa-sharp fa-solid fa-house"></i> */}
               </Link>
             </li>
             <li>
-              <Link to="/cart"  className={location==='/cart'? "active" : ""}>
+              <Link to="/cart" className={location === "/cart" ? "active" : ""}>
                 <img src="assets/icons/shopping-cart.png" alt="Cart" />
                 {/* <i class="fa-sharp fa-solid fa-cart-shopping"></i> */}
               </Link>
             </li>
             <li>
-              <Link to="/myprofile"  className={location==='/myprofile'? "active" : ""}>
+              <Link
+                to="/myprofile"
+                className={location === "/myprofile" ? "active" : ""}
+              >
                 <img src="assets/icons/user.png" alt="User" />
                 {/* <i class="fa-sharp fa-solid fa-user"></i> */}
               </Link>
             </li>
-            <li>
-              <Link
-                to="/login"
-                style={{ borderInline: "2px solid blue", padding: "2px 6px" }}
-              >
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/signup"
-                style={{
-                  padding: "4px 8px",
-                  backgroundColor: "blue",
-                  color: "white",
-                }}
-              >
-                Signup
-              </Link>
-            </li>
+            {false ? (
+              ""
+            ) : (
+              <>
+                <li>
+                  <Link
+                    to="/login"
+                    style={{
+                      borderInline: "2px solid blue",
+                      padding: "2px 6px",
+                    }}
+                  >
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/signup"
+                    style={{
+                      padding: "4px 8px",
+                      backgroundColor: "blue",
+                      color: "white",
+                    }}
+                  >
+                    Signup
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
