@@ -3,19 +3,47 @@ import React, { useEffect } from "react";
 import "./signup.css";
 import { useState } from "react";
 
-
 function Signup() {
-  const [countries, setCountries] = useState([])
-  useEffect(()=>{
-    axios.get("http://localhost:8585/csc/countries").then((response)=>{
-      setCountries(response.data)
-      // console.log(response.data)
-    }).catch((e)=>{
-      console.log(e)
-    })
-  },[])
-  
   document.title = "Create your account";
+
+  const [countries, setCountries] = useState([]);
+  const [state, setState] = useState([]);
+  const [city, setCity] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8585/csc/countries")
+      .then((response) => {
+        setCountries(response.data);
+        // console.log(response.data)
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
+
+  const handleState = (e) => {
+    axios
+      .get("http://localhost:8585/csc/states?country=" + e.target.value)
+      .then((response) => {
+        setState(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const handleCity = (e) => {
+    axios
+      .get("http://localhost:8585/csc/cities?state=" + e.target.value)
+      .then((response) => {
+        setCity(response.data);
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   return (
     <>
       <div className="signup-form">
@@ -23,7 +51,13 @@ function Signup() {
         <form action="">
           <div className="form-group">
             <label htmlFor="name">Name</label>
-            <input type="text" name="name" id="name" placeholder="john doe" autoFocus/>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="john doe"
+              autoFocus
+            />
           </div>
           <div className="form-group">
             <label htmlFor="nickname">Nickname</label>
@@ -81,31 +115,39 @@ function Signup() {
           </div>
           <div className="form-group">
             <label htmlFor="country">Country</label>
-            <select name="country" id="country">
+            <select
+              name="country"
+              id="country"
+              onChange={(e) => handleState(e)}
+            >
               <option>-------select-------</option>
-              {countries.map((item, key)=> <option key={key} value={item}>{item}</option>)}      
+              {countries.map((item, key) => (
+                <option key={key} value={item}>
+                  {item}
+                </option>
+              ))}
             </select>
           </div>
           <div className="form-group">
             <label htmlFor="state">State</label>
-            <select name="state" id="state">
-              <option>---- Select ----</option>
-              <option value="odisha">Odisha</option>
-              <option value="odisha">Odisha</option>
-              <option value="odisha">Odisha</option>
-              <option value="odisha">Odisha</option>
-              <option value="odisha">Odisha</option>
+            <select name="state" id="state" onChange={(e) => handleCity(e)}>
+              {/* <option>-------select-------</option> */}
+              {state.map((item, key) => (
+                <option key={key} value={item}>
+                  {item}
+                </option>
+              ))}
             </select>
           </div>
           <div className="form-group">
             <label htmlFor="city">City</label>
             <select name="city" id="city">
-              <option>---- Select ----</option>
-              <option value="puri">Puri</option>
-              <option value="puri">Puri</option>
-              <option value="puri">Puri</option>
-              <option value="puri">Puri</option>
-              <option value="puri">Puri</option>
+              {/* <option>---- Select ----</option> */}
+              {city.map((item, key) => (
+                <option key={key} value={item}>
+                  {item}
+                </option>
+              ))}
             </select>
           </div>
           <div className="form-group">
