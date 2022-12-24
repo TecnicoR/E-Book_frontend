@@ -1,7 +1,20 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 import "./signup.css";
+import { useState } from "react";
+
 
 function Signup() {
+  const [countries, setCountries] = useState([])
+  useEffect(()=>{
+    axios.get("http://localhost:8585/csc/countries").then((response)=>{
+      setCountries(response.data)
+      // console.log(response.data)
+    }).catch((e)=>{
+      console.log(e)
+    })
+  },[])
+  
   document.title = "Create your account";
   return (
     <>
@@ -69,12 +82,8 @@ function Signup() {
           <div className="form-group">
             <label htmlFor="country">Country</label>
             <select name="country" id="country">
-              <option>---- Select ----</option>
-              <option value="india">India</option>
-              <option value="india">USA</option>
-              <option value="india">India</option>
-              <option value="india">India</option>
-              <option value="india">India</option>
+              <option>-------select-------</option>
+              {countries.map((item, key)=> <option key={key} value={item}>{item}</option>)}      
             </select>
           </div>
           <div className="form-group">

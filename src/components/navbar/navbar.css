@@ -12,6 +12,7 @@
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin-bottom: 10px;
+    background-color: #f9f9f9;
 }
 .logo{
     height: 70px;

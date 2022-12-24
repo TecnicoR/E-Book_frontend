@@ -3,8 +3,7 @@ import "./navbar.css";
 import { Link, useLocation } from "react-router-dom";
 
 function Navbar() {
-  const location = useLocation().pathname;
-  console.log(location);
+  
   return (
     <>
       <div className="header">
@@ -23,7 +22,7 @@ function Navbar() {
               type="text"
               name="q"
               id="q"
-              placeholder="type here to read..."
+              placeholder="type here to search..."
             />
             <input type="submit" value="Search" />
           </form>
@@ -31,22 +30,19 @@ function Navbar() {
         <div className="right">
           <ul className="menu">
             <li>
-              <Link to="/" className={location === "/" ? "active" : ""}>
+              <Link to="/">
                 <img src="assets/icons/home.png" alt="Home" />
                 {/* <i class="fa-sharp fa-solid fa-house"></i> */}
               </Link>
             </li>
             <li>
-              <Link to="/cart" className={location === "/cart" ? "active" : ""}>
+              <Link to="/cart">
                 <img src="assets/icons/shopping-cart.png" alt="Cart" />
                 {/* <i class="fa-sharp fa-solid fa-cart-shopping"></i> */}
               </Link>
             </li>
             <li>
-              <Link
-                to="/myprofile"
-                className={location === "/myprofile" ? "active" : ""}
-              >
+              <Link to="/myprofile">
                 <img src="assets/icons/user.png" alt="User" />
                 {/* <i class="fa-sharp fa-solid fa-user"></i> */}
               </Link>

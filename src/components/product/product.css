@@ -10,6 +10,8 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     box-sizing: border-box;
     overflow: hidden;
+    /* background-color: #f9f9f9; */
+    background-color: #EAFDFC;
 }
 .product .image{
     display: flex;

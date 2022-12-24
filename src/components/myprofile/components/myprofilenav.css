@@ -1,0 +1,31 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.my-profile-nav{
+    height: 50px;
+    background-color: #EAFDFC;
+}
+
+.my-profile-nav ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    list-style: none;
+
+}
+
+.my-profile-nav ul a{ 
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px;
+    border-bottom: 3px solid blue;
+}
+.my-profile-nav-active{
+    background-color: blue;
+    border-radius: 6px;
+}
+.my-profile-nav ul a:hover{ 
+    color: black;
+}
