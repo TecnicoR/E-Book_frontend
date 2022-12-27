@@ -10,6 +10,8 @@ function Signup() {
   const [state, setState] = useState([]);
   const [city, setCity] = useState([]);
 
+  const [data, setData] = useState({});
+
   useEffect(() => {
     axios
       .get("http://localhost:8585/csc/countries")
@@ -22,9 +24,15 @@ function Signup() {
       });
   }, []);
 
-  const handleState = (e) => {
+  useEffect(() => {
+    if (data?.address?.country) {
+      handleState();
+    }
+  }, [data?.address?.country]);
+
+  const handleState = () => {
     axios
-      .get("http://localhost:8585/csc/states?country=" + e.target.value)
+      .get("http://localhost:8585/csc/states?country=" + data?.address?.country)
       .then((response) => {
         setState(response.data);
       })
@@ -44,6 +52,21 @@ function Signup() {
         console.log(e);
       });
   };
+
+  function onValueChange(source, value) {
+    const temp = { ...data };
+
+    if (typeof value === "object") {
+      if (!temp[source]) {
+        temp[source] = {};
+      }
+    }
+
+    temp[source] = value;
+
+    setData(temp);
+    console.log(data);
+  }
   return (
     <>
       <div className="signup-form">
@@ -57,6 +80,10 @@ function Signup() {
               id="name"
               placeholder="john doe"
               autoFocus
+              value={data?.name}
+              onChange={(event) => {
+                onValueChange("name", event.target.value);
+              }}
             />
           </div>
           <div className="form-group">
@@ -66,15 +93,23 @@ function Signup() {
               name="nickname"
               id="nickname"
               placeholder="john"
+              value={data?.nickname}
+              onChange={(event) => {
+                onValueChange("nickname", event.target.value);
+              }}
             />
           </div>
           <div className="form-group">
             <label htmlFor="phone">Contact Number</label>
             <input
               type="text"
-              name="phone"
-              id="phone"
+              name="phphoneNumberone"
+              id="phphoneNumberone"
               placeholder="9876543211"
+              value={data?.phoneNumber}
+              onChange={(event) => {
+                onValueChange("phoneNumber", event.target.value);
+              }}
             />
           </div>
           <div className="form-group">
@@ -84,6 +119,10 @@ function Signup() {
               name="email"
               id="email"
               placeholder="example@website.com"
+              value={data?.phonemaileNumber}
+              onChange={(event) => {
+                onValueChange("phoneNumemailber", event.target.value);
+              }}
             />
           </div>
           <div className="form-group">
@@ -93,6 +132,13 @@ function Signup() {
               name="addressLine1"
               id="addressLine1"
               placeholder="Flat no 101"
+              value={data?.address?.addressLine1}
+              onChange={(event) => {
+                onValueChange("address", {
+                  ...data?.address,
+                  addressLine1: event.target.value,
+                });
+              }}
             />
           </div>
           <div className="form-group">
@@ -102,6 +148,13 @@ function Signup() {
               name="addressLine2"
               id="addressLine2"
               placeholder="Near XYZ School"
+              value={data?.address?.addressLine2}
+              onChange={(event) => {
+                onValueChange("address", {
+                  ...data?.address,
+                  addressLine2: event.target.value,
+                });
+              }}
             />
           </div>
           <div className="form-group">
@@ -111,6 +164,13 @@ function Signup() {
               name="pincode"
               id="pincode"
               placeholder="765432"
+              value={data?.address?.pincode}
+              onChange={(event) => {
+                onValueChange("address", {
+                  ...data?.address,
+                  pincode: event.target.value,
+                });
+              }}
             />
           </div>
           <div className="form-group">
@@ -118,7 +178,13 @@ function Signup() {
             <select
               name="country"
               id="country"
-              onChange={(e) => handleState(e)}
+              value={data?.address?.country}
+              onChange={(event) => {
+                onValueChange("address", {
+                  ...data?.address,
+                  country: event.target.value,
+                });
+              }}
             >
               <option>-------select-------</option>
               {countries.map((item, key) => (
@@ -171,7 +237,7 @@ function Signup() {
             />
           </div>
           <div className="form-group">
-            <button>Create account</button>
+            <button >Create account</button>
           </div>
         </form>
       </div>
