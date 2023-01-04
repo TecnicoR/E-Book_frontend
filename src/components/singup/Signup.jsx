@@ -7,6 +7,7 @@ import {
   getAllStates,
 } from "../../services/LocationService";
 import { createUser } from "../../services/UserService";
+import { toast } from "react-toastify";
 
 function Signup() {
   document.title = "Create your account";
@@ -71,11 +72,12 @@ function Signup() {
     // console.log("data ", data);
     createUser(data)
       .then((res) => {
-        alert("Successfully created the user", res?.id);
-
+        // alert("Successfully created the user", res?.id);
+        toast.success("User created successfully");
       })
       .catch((err) => {
-        alert("Error occured:", err?.message);
+        // alert("Error occured:", err?.message);
+        toast.error("Something wrong, please try again");
       });
   }
 
@@ -83,7 +85,7 @@ function Signup() {
     <>
       <div className="signup-form">
         <h3>Create your account</h3>
-        <div>
+        <div className="form">
           <div className="form-group">
             <label htmlFor="name">Name</label>
             <input
@@ -271,9 +273,8 @@ function Signup() {
               placeholder="confirm password"
             />
           </div>
-          <div className="form-group1">
-            <div onClick={() => createAccount()}>Create Account</div>
-            {/* <button onClick={() => createAccount()}>Create account</button> */}
+          <div className="form-group">
+            <button onClick={() => createAccount()}>Create account</button>
           </div>
         </div>
       </div>

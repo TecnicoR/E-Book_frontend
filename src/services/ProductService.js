@@ -1,0 +1,10 @@
+import { apiHelper } from "./apiHelper";
+export const getAllProducts = async (data) => {
+  try {
+    const response = await apiHelper.get(`/products`);
+    return await Promise.resolve(response.data);
+  } catch (err) {
+    console.log("error while getting contries", err);
+    return await Promise.reject(err);
+  }
+};
