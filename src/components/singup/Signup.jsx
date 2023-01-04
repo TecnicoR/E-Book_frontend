@@ -83,7 +83,7 @@ function Signup() {
     <>
       <div className="signup-form">
         <h3>Create your account</h3>
-        <form action="">
+        <div>
           <div className="form-group">
             <label htmlFor="name">Name</label>
             <input
@@ -275,7 +275,7 @@ function Signup() {
             <div onClick={() => createAccount()}>Create Account</div>
             {/* <button onClick={() => createAccount()}>Create account</button> */}
           </div>
-        </form>
+        </div>
       </div>
     </>
   );
