@@ -12,6 +12,7 @@
     "react-rating-stars-component": "^2.2.0",
     "react-router-dom": "^6.5.0",
     "react-scripts": "5.0.1",
+    "typecript": "^0.0.1-security",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

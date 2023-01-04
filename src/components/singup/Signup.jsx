@@ -1,57 +1,56 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import "./signup.css";
 import { useState } from "react";
+import {
+  getAllCities,
+  getAllCountries,
+  getAllStates,
+} from "../../services/LocationService";
+import { createUser } from "../../services/UserService";
 
 function Signup() {
   document.title = "Create your account";
 
   const [countries, setCountries] = useState([]);
-  const [state, setState] = useState([]);
-  const [city, setCity] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
 
   const [data, setData] = useState({});
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8585/csc/countries")
-      .then((response) => {
-        setCountries(response.data);
-        // console.log(response.data)
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    if (!countries || countries?.length === 0)
+      getAllCountries()
+        .then((res) => {
+          // console.log("res", res);
+          setCountries(res);
+        })
+        .catch((err) => console.log("err", err));
   }, []);
 
   useEffect(() => {
     if (data?.address?.country) {
-      handleState();
+      setStates([]);
+      setCities([]);
+      getAllStates(data?.address?.country)
+        .then((res) => {
+          // console.log("res of states", res);
+          setStates(res);
+        })
+        .catch((err) => console.log("err", err));
     }
   }, [data?.address?.country]);
 
-  const handleState = () => {
-    axios
-      .get("http://localhost:8585/csc/states?country=" + data?.address?.country)
-      .then((response) => {
-        setState(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-
-  const handleCity = (e) => {
-    axios
-      .get("http://localhost:8585/csc/cities?state=" + e.target.value)
-      .then((response) => {
-        setCity(response.data);
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+  useEffect(() => {
+    if (data?.address?.state) {
+      setCities([]);
+      getAllCities(data?.address?.state)
+        .then((res) => {
+          // console.log("res of cities", res);
+          setCities(res);
+        })
+        .catch((err) => console.log("err", err));
+    }
+  }, [data?.address?.state]);
 
   function onValueChange(source, value) {
     const temp = { ...data };
@@ -65,8 +64,21 @@ function Signup() {
     temp[source] = value;
 
     setData(temp);
-    console.log(data);
+    // console.log(data);
   }
+
+  function createAccount() {
+    // console.log("data ", data);
+    createUser(data)
+      .then((res) => {
+        alert("Successfully created the user", res?.id);
+
+      })
+      .catch((err) => {
+        alert("Error occured:", err?.message);
+      });
+  }
+
   return (
     <>
       <div className="signup-form">
@@ -119,9 +131,9 @@ function Signup() {
               name="email"
               id="email"
               placeholder="example@website.com"
-              value={data?.phonemaileNumber}
+              value={data?.email}
               onChange={(event) => {
-                onValueChange("phoneNumemailber", event.target.value);
+                onValueChange("email", event.target.value);
               }}
             />
           </div>
@@ -183,11 +195,13 @@ function Signup() {
                 onValueChange("address", {
                   ...data?.address,
                   country: event.target.value,
+                  state: "",
+                  city: "",
                 });
               }}
             >
               <option>-------select-------</option>
-              {countries.map((item, key) => (
+              {countries?.map((item, key) => (
                 <option key={key} value={item}>
                   {item}
                 </option>
@@ -196,9 +210,20 @@ function Signup() {
           </div>
           <div className="form-group">
             <label htmlFor="state">State</label>
-            <select name="state" id="state" onChange={(e) => handleCity(e)}>
+            <select
+              name="state"
+              id="state"
+              value={data?.address?.state}
+              onChange={(event) => {
+                onValueChange("address", {
+                  ...data?.address,
+                  state: event.target.value,
+                  city: "",
+                });
+              }}
+            >
               {/* <option>-------select-------</option> */}
-              {state.map((item, key) => (
+              {states?.map((item, key) => (
                 <option key={key} value={item}>
                   {item}
                 </option>
@@ -207,9 +232,19 @@ function Signup() {
           </div>
           <div className="form-group">
             <label htmlFor="city">City</label>
-            <select name="city" id="city">
+            <select
+              name="city"
+              id="city"
+              value={data?.address?.city}
+              onChange={(event) => {
+                onValueChange("address", {
+                  ...data?.address,
+                  city: event.target.value,
+                });
+              }}
+            >
               {/* <option>---- Select ----</option> */}
-              {city.map((item, key) => (
+              {cities?.map((item, key) => (
                 <option key={key} value={item}>
                   {item}
                 </option>
@@ -236,8 +271,9 @@ function Signup() {
               placeholder="confirm password"
             />
           </div>
-          <div className="form-group">
-            <button >Create account</button>
+          <div className="form-group1">
+            <div onClick={() => createAccount()}>Create Account</div>
+            {/* <button onClick={() => createAccount()}>Create account</button> */}
           </div>
         </form>
       </div>
