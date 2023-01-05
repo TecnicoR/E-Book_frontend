@@ -8,3 +8,13 @@ export const getAllProducts = async (data) => {
     return await Promise.reject(err);
   }
 };
+
+export const addProductToCart = async (id) => {
+  try {
+    const response = await apiHelper.post(`/cart?userId=${id}&productId=${id}`);
+    return await Promise.resolve(response.data);
+  } catch (err) {
+    console.log("error while adding product ", err);
+    return await Promise.reject(err);
+  }
+};

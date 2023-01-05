@@ -3,7 +3,7 @@ import "./product.css";
 import ReactStars from "react-rating-stars-component";
 
 
-function Product({product}) {
+function Product({product, addToCart}) {
   document.title = "All Products"
   return (
     <div key={product?.id} className="product">
@@ -25,7 +25,7 @@ function Product({product}) {
       </div>
       <div className="actions">
         <img src="assets/icons/buy.png" alt="Buy Now" />
-        <img src="assets/icons/add-to-cart.png" alt="Add to cart" />
+        <img src="assets/icons/add-to-cart.png" alt="Add to cart" onClick={()=>addToCart()} />
       </div>
     </div>
   );

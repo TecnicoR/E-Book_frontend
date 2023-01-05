@@ -1,27 +1,52 @@
 import React from "react";
 import { toast } from "react-toastify";
-import { getAllProducts } from "../../services/ProductService";
+import {
+  addProductToCart,
+  getAllProducts,
+} from "../../services/ProductService";
 import Product from "../product/Product";
 import "./products.css";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Products() {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
+
   useEffect(() => {
     getAllProducts()
       .then((res) => {
+        console.log("res",res)
         setProducts(res);
       })
       .catch((err) => {
-        toast.error("Something Wrong");
+        // toast.error("Something Wrong");
       });
   }, []);
 
+  function addToCart(id) {
+    // if (!localStorage.getItem("auth")) {
+    //   toast.info("Please Login First");
+    //   navigate("/login")
+    // }
+    // else
+      addProductToCart(id)
+        .then((res) => {
+          toast.success("Product added successfully");
+        })
+        .catch((err) => {
+          toast.error("Something went wrong", err);
+        });
+  }
   return (
     <div className="products">
-      {products?.map((item, key) => (
-        <Product product={item} />
-      ))}
+      
+      {
+      products?.length>0 ? products?.map((item, key) => 
+        <Product product={item} addToCart={() => addToCart(item?.id)} />
+      )
+      : <div>No data available</div>
+      }
     </div>
   );
 }
