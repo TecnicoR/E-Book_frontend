@@ -19,11 +19,9 @@ function Products() {
 
   return (
     <div className="products">
-      {products?.map((item, key) => {
+      {products?.map((item, key) => (
         <Product key={key} prop={item} />
-        // console.log("data  - " ,item)
-      })}
-      {/* <Product prop={{"name" : "hey", "price" : "878", "imageUrl" : "7"}}/> */}
+      ))}
     </div>
   );
 }
