@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Products() {
+  document.title = "All Products"
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
@@ -25,11 +26,11 @@ function Products() {
   }, []);
 
   function addToCart(id) {
-    // if (!localStorage.getItem("auth")) {
-    //   toast.info("Please Login First");
-    //   navigate("/login")
-    // }
-    // else
+    if (!localStorage.getItem("auth")) {
+      toast.info("Please Login First");
+      navigate("/login")
+    }
+    else
       addProductToCart(id)
         .then((res) => {
           toast.success("Product added successfully");

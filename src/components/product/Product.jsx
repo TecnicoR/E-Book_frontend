@@ -4,7 +4,6 @@ import ReactStars from "react-rating-stars-component";
 
 
 function Product({product, addToCart}) {
-  document.title = "All Products"
   return (
     <div key={product?.id} className="product">
       <div className="image">
