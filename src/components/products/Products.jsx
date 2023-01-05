@@ -20,7 +20,7 @@ function Products() {
   return (
     <div className="products">
       {products?.map((item, key) => (
-        <Product key={key} prop={item} />
+        <Product product={item} />
       ))}
     </div>
   );
