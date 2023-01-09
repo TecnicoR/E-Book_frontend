@@ -29,12 +29,12 @@ function Signup() {
 
   function sendOtp() {
     console.log("data ", data);
+    setStatus(2);
     createUser(data)
       .then((res) => {
         // alert("Successfully created the user", res?.id);
         console.log("Send Otp method ", res);
         setResponse(res);
-        setStatus(2);
         setData({});
         toast.success("Please enter OTP sent to your email and phone");
       })
