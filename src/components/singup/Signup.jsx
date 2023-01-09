@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { RingLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import {
   confirmAccount,
   createUser,
   getVerification,
 } from "../../services/UserService";
+import Loader from "../loader/Loader";
 import "./signup.css";
 function Signup() {
   const navigate = useNavigate();
@@ -13,6 +15,7 @@ function Signup() {
   //   status = 1 means email, phone , 2 means enter otp, 3 means password
   const [status, setStatus] = useState(1);
   const [response, setResponse] = useState({});
+  const [loader, setLoader] = useState(false);
 
   function onValueChange(source, value) {
     const temp = { ...data };
@@ -29,11 +32,12 @@ function Signup() {
 
   function sendOtp() {
     console.log("data ", data);
-    setStatus(2);
+    setLoader(true);
     createUser(data)
       .then((res) => {
         // alert("Successfully created the user", res?.id);
         console.log("Send Otp method ", res);
+        setStatus(2);
         setResponse(res);
         setData({});
         toast.success("Please enter OTP sent to your email and phone");
@@ -42,11 +46,15 @@ function Signup() {
         // console.log(err);
         // alert("Error occured:", err?.message);
         toast.error(err?.response?.data?.message);
+      }).finally(()=>{
+        setLoader(false);
       });
+      
   }
 
   function verifyOtp() {
     console.log("data ", data);
+    setLoader(true);
     getVerification(response?.id, data)
       .then((res) => {
         // alert("Successfully created the user", res?.id);
@@ -60,11 +68,14 @@ function Signup() {
         console.log(err);
         // alert("Error occured:", err?.message);
         toast.error(err?.response?.data?.message);
-      });
+      }).finally(()=>{
+        setLoader(false);
+      });;
   }
 
   function createAccount() {
     console.log("data ", data);
+    setLoader(true);
     confirmAccount(response?.id, data)
       .then((res) => {
         // alert("Successfully created the user", res?.id);
@@ -79,7 +90,9 @@ function Signup() {
         console.log(err);
         // alert("Error occured:", err?.message);
         toast.error(err?.response?.data?.message);
-      });
+      }).finally(()=>{
+        setLoader(false);
+      });;
   }
 
   function renderEmailPhone() {
@@ -232,6 +245,11 @@ function Signup() {
 
   return (
     <>
+      {loader ? (
+        <Loader/>
+      ) : (
+        ""
+      )}
       {status === 1
         ? renderEmailPhone()
         : status === 2
