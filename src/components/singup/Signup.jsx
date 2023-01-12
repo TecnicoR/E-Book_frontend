@@ -12,6 +12,7 @@ import "./signup.css";
 function Signup() {
   const navigate = useNavigate();
   const [data, setData] = useState({});
+  const [errors, setErrors] = useState();
   //   status = 1 means email, phone , 2 means enter otp, 3 means password
   const [status, setStatus] = useState(1);
   const [response, setResponse] = useState({});
@@ -30,26 +31,59 @@ function Signup() {
     // console.log(data);
   }
 
+  function validate() {
+    let temp = { ...errors };
+    if (!data?.name) {
+      temp["name"] = "Required";
+    }else{
+      delete temp["name"]
+    }
+    if (!data?.email) {
+      temp["email"] = "Required";
+    } else {
+      let regex =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      let isEmailValid = regex.test(data?.email.toLowerCase());
+      if (!isEmailValid) {
+        temp["email"] = "Invalid Email";
+      }else{
+        delete temp["email"]
+      }
+    }
+    if (!data?.phone) temp["phone"] = "Required";
+    else {
+      if (data?.phone && data?.phone?.length !== 10) {
+        temp["phone"] = "Invalid Phone";
+      }else{
+        delete temp["phone"]
+      }
+    }
+    setErrors(temp);
+    return temp?.length === 0 ? true : false;
+  }
+
   function sendOtp() {
     console.log("data ", data);
-    setLoader(true);
-    createUser(data)
-      .then((res) => {
-        // alert("Successfully created the user", res?.id);
-        console.log("Send Otp method ", res);
-        setStatus(2);
-        setResponse(res);
-        setData({});
-        toast.success("Please enter OTP sent to your email and phone");
-      })
-      .catch((err) => {
-        // console.log(err);
-        // alert("Error occured:", err?.message);
-        toast.error(err?.response?.data?.message);
-      }).finally(()=>{
-        setLoader(false);
-      });
-      
+    if (validate()) {
+      setLoader(true);
+      createUser(data)
+        .then((res) => {
+          setData({ phoneOtp: "", emailOtp: "" });
+          // alert("Successfully created the user", res?.id);
+          console.log("Send Otp method ", res);
+          setStatus(2);
+          setResponse(res);
+          toast.success("Please enter OTP sent to your email and phone");
+        })
+        .catch((err) => {
+          // console.log(err);
+          // alert("Error occured:", err?.message);
+          toast.error(err?.response?.data?.message);
+        })
+        .finally(() => {
+          setLoader(false);
+        });
+    }
   }
 
   function verifyOtp() {
@@ -57,20 +91,21 @@ function Signup() {
     setLoader(true);
     getVerification(response?.id, data)
       .then((res) => {
+        setData(null);
         // alert("Successfully created the user", res?.id);
         console.log("Verify Otp ", res);
         setResponse(res);
         setStatus(3);
-        setData({});
         toast.success("Verified Please enter password");
       })
       .catch((err) => {
         console.log(err);
         // alert("Error occured:", err?.message);
         toast.error(err?.response?.data?.message);
-      }).finally(()=>{
+      })
+      .finally(() => {
         setLoader(false);
-      });;
+      });
   }
 
   function createAccount() {
@@ -80,9 +115,9 @@ function Signup() {
       .then((res) => {
         // alert("Successfully created the user", res?.id);
         console.log("Confirm ", res);
+        setData(null);
         setResponse(res);
         setStatus(4);
-        setData({});
         toast.success("Success, Now you can order");
         navigate("/");
       })
@@ -90,10 +125,13 @@ function Signup() {
         console.log(err);
         // alert("Error occured:", err?.message);
         toast.error(err?.response?.data?.message);
-      }).finally(()=>{
+      })
+      .finally(() => {
         setLoader(false);
-      });;
+      });
   }
+
+  console.log("data ", data);
 
   function renderEmailPhone() {
     return (
@@ -116,6 +154,7 @@ function Signup() {
                   onValueChange("name", event.target.value);
                 }}
               />
+              <p className="errorMessage">{errors?.name}</p>
             </div>
 
             <div className="form-group">
@@ -125,11 +164,12 @@ function Signup() {
                 name="phone"
                 id="phone"
                 placeholder="9876543211"
-                value={data?.phoneNumber}
+                value={data?.phone}
                 onChange={(event) => {
                   onValueChange("phone", event.target.value);
                 }}
               />
+              <p className="errorMessage">{errors?.phone}</p>
             </div>
             <div className="form-group">
               <label htmlFor="email">E-mail</label>
@@ -143,6 +183,7 @@ function Signup() {
                   onValueChange("email", event.target.value);
                 }}
               />
+              <p className="errorMessage">{errors?.email}</p>
             </div>
             <div className="form-group">
               <button onClick={() => sendOtp()}>Send OTP</button>
@@ -245,11 +286,7 @@ function Signup() {
 
   return (
     <>
-      {loader ? (
-        <Loader/>
-      ) : (
-        ""
-      )}
+      {loader ? <Loader /> : ""}
       {status === 1
         ? renderEmailPhone()
         : status === 2
