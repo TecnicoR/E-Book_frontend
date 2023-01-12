@@ -35,8 +35,8 @@ function Signup() {
     let temp = { ...errors };
     if (!data?.name) {
       temp["name"] = "Required";
-    }else{
-      delete temp["name"]
+    } else {
+      delete temp["name"];
     }
     if (!data?.email) {
       temp["email"] = "Required";
@@ -46,16 +46,61 @@ function Signup() {
       let isEmailValid = regex.test(data?.email.toLowerCase());
       if (!isEmailValid) {
         temp["email"] = "Invalid Email";
-      }else{
-        delete temp["email"]
+      } else {
+        delete temp["email"];
       }
     }
     if (!data?.phone) temp["phone"] = "Required";
     else {
       if (data?.phone && data?.phone?.length !== 10) {
         temp["phone"] = "Invalid Phone";
-      }else{
-        delete temp["phone"]
+      } else {
+        delete temp["phone"];
+      }
+    }
+    if (!data?.phoneOtp) temp["phoneOtp"] = "Required";
+    else {
+      if (data?.phoneOtp && data?.phoneOtp?.length !== 6) {
+        temp["phoneOtp"] = "Invalid Otp, should be 6 characters";
+      } else {
+        delete temp["phoneOtp"];
+      }
+    }
+
+    if (!data?.emailOtp) temp["emailOtp"] = "Required";
+    else {
+      if (data?.emailOtp && data?.emailOtp?.length !== 6) {
+        temp["emailOtp"] = "Invalid Otp, should be 6 characters";
+      } else {
+        delete temp["emailOtp"];
+      }
+    }
+    if (!data?.password) {
+      temp["password"] = "Required";
+    } else {
+      let regex =
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+      let isPasswordValid = regex.test(data?.password);
+      if (!isPasswordValid) {
+        temp["password"] =
+          "Minimum eight characters, at least one letter, one number and one special character";
+      } else {
+        delete temp["password"];
+      }
+    }
+    if (!data?.confirmPassword) {
+      temp["confirmPassword"] = "Required";
+    } else if (data?.confirmPassword !== data?.password) {
+      temp["confirmPassword"] = "Passwords does not match";
+    } else {
+      let regex =
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+      let isPasswordValid = regex.test(data?.confirmPassword);
+      if (!isPasswordValid) {
+        temp["confirmPassword"] =
+          "Minimum eight characters, at least one letter, one number and one special character";
+      } else {
+        delete temp["confirmPassword"];
       }
     }
     setErrors(temp);
@@ -63,7 +108,7 @@ function Signup() {
   }
 
   function sendOtp() {
-    console.log("data ", data);
+    // console.log("data ", data);
     if (validate()) {
       setLoader(true);
       createUser(data)
@@ -88,50 +133,52 @@ function Signup() {
 
   function verifyOtp() {
     console.log("data ", data);
-    setLoader(true);
-    getVerification(response?.id, data)
-      .then((res) => {
-        setData(null);
-        // alert("Successfully created the user", res?.id);
-        console.log("Verify Otp ", res);
-        setResponse(res);
-        setStatus(3);
-        toast.success("Verified Please enter password");
-      })
-      .catch((err) => {
-        console.log(err);
-        // alert("Error occured:", err?.message);
-        toast.error(err?.response?.data?.message);
-      })
-      .finally(() => {
-        setLoader(false);
-      });
+    if (validate()) {
+      setLoader(true);
+      getVerification(response?.id, data)
+        .then((res) => {
+          setData(null);
+          // alert("Successfully created the user", res?.id);
+          console.log("Verify Otp ", res);
+          setResponse(res);
+          setStatus(3);
+          toast.success("Verified Please enter password");
+        })
+        .catch((err) => {
+          console.log(err);
+          // alert("Error occured:", err?.message);
+          toast.error(err?.response?.data?.message);
+        })
+        .finally(() => {
+          setLoader(false);
+        });
+    }
   }
 
   function createAccount() {
-    console.log("data ", data);
-    setLoader(true);
-    confirmAccount(response?.id, data)
-      .then((res) => {
-        // alert("Successfully created the user", res?.id);
-        console.log("Confirm ", res);
-        setData(null);
-        setResponse(res);
-        setStatus(4);
-        toast.success("Success, Now you can order");
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        // alert("Error occured:", err?.message);
-        toast.error(err?.response?.data?.message);
-      })
-      .finally(() => {
-        setLoader(false);
-      });
+    // console.log("data ", data);
+    if (validate()) {
+      setLoader(true);
+      confirmAccount(response?.id, data)
+        .then((res) => {
+          // alert("Successfully created the user", res?.id);
+          console.log("Confirm ", res);
+          setData(null);
+          setResponse(res);
+          setStatus(4);
+          toast.success("Success, Now you can order");
+          navigate("/");
+        })
+        .catch((err) => {
+          console.log(err);
+          // alert("Error occured:", err?.message);
+          toast.error(err?.response?.data?.message);
+        })
+        .finally(() => {
+          setLoader(false);
+        });
+    }
   }
-
-  console.log("data ", data);
 
   function renderEmailPhone() {
     return (
@@ -216,6 +263,7 @@ function Signup() {
                   onValueChange("phoneOtp", event.target.value);
                 }}
               />
+              <p className="errorMessage">{errors?.phoneOtp}</p>
             </div>
             <div className="form-group">
               <label style={{ fontSize: "24px" }} htmlFor="emailOtp">
@@ -231,6 +279,7 @@ function Signup() {
                   onValueChange("emailOtp", event.target.value);
                 }}
               />
+              <p className="errorMessage">{errors?.phoneOtp}</p>
             </div>
             <div className="form-group">
               <button onClick={() => verifyOtp()}>Create account</button>
@@ -261,6 +310,7 @@ function Signup() {
                   onValueChange("password", event.target.value);
                 }}
               />
+              <p className="errorMessage">{errors?.password}</p>
             </div>
             <div className="form-group">
               <label htmlFor="confirmPassword">Confirm password</label>
@@ -274,6 +324,7 @@ function Signup() {
                   onValueChange("confirmPassword", event.target.value);
                 }}
               />
+              <p className="errorMessage">{errors?.confirmPassword}</p>
             </div>
             <div className="form-group">
               <button onClick={() => createAccount()}>Create account</button>
