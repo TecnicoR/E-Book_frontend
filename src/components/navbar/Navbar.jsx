@@ -1,9 +1,16 @@
 import React from "react";
 import "./navbar.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Navbar() {
-  
+  const navigate = useNavigate();
+  function doLogout(){
+    localStorage.clear();
+    toast.success("Bye ! Come back again");
+    navigate("/login");
+  }
+
   return (
     <>
       <div className="header">
@@ -48,7 +55,19 @@ function Navbar() {
               </Link>
             </li>
             {localStorage.getItem("auth") ? (
-              ""
+              <>
+                <li>
+                  <Link
+                    onClick={()=> doLogout()}
+                    style={{
+                      borderInline: "2px solid blue",
+                      padding: "2px 6px",
+                    }}
+                  >
+                    Logout
+                  </Link>
+                </li>
+              </>
             ) : (
               <>
                 <li>
