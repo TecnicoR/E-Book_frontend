@@ -109,7 +109,7 @@ function Signup() {
 
   function sendOtp() {
     // console.log("data ", data);
-    if (validate()) {
+    // if (validate()) {
       setLoader(true);
       createUser(data)
         .then((res) => {
@@ -128,12 +128,13 @@ function Signup() {
         .finally(() => {
           setLoader(false);
         });
-    }
+    // }
   }
 
   function verifyOtp() {
     console.log("data ", data);
-    if (validate()) {
+    setErrors(null)
+    // if (validate()) {
       setLoader(true);
       getVerification(response?.id, data)
         .then((res) => {
@@ -152,12 +153,12 @@ function Signup() {
         .finally(() => {
           setLoader(false);
         });
-    }
+    // }
   }
 
   function createAccount() {
     // console.log("data ", data);
-    if (validate()) {
+    // if (validate()) {
       setLoader(true);
       confirmAccount(response?.id, data)
         .then((res) => {
@@ -177,7 +178,7 @@ function Signup() {
         .finally(() => {
           setLoader(false);
         });
-    }
+    // }
   }
 
   function renderEmailPhone() {

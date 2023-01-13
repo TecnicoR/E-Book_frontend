@@ -14,7 +14,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
-  background-color : #BFEAF5;
+  /* background-color : #BFEAF5; */
+  background-image: url("/home/rabinarayanpatra/Desktop/Personal/Ebook Front/E-Book_frontend/public/assets/images/bg.jpg");
+  background-size: cover;
 }
 
 /* code {
