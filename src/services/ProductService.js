@@ -28,3 +28,13 @@ export const getCartByUserId = async (userId) => {
     return await Promise.reject(err);
   }
 };
+
+export const removeProductFromCart = async (userId, productId) =>{
+  try{  
+    const response = await apiHelper.delete(`/cart?userId=${userId}&productId=${productId}`);
+    return await Promise.resolve(response.data);
+  } catch (err){
+    console.log("error while removing from cart ", err);
+    return await Promise.reject(err);
+  }
+}

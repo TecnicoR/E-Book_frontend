@@ -2,7 +2,7 @@ import React from "react";
 import "./cartproduct.css";
 import ReactStars from "react-rating-stars-component";
 
-function CartProduct({product}) {
+function CartProduct({product, removeFromCart}) {
   return (
     <div key={product?.id} className="cart-product">
       <div className="image">
@@ -24,7 +24,7 @@ function CartProduct({product}) {
         <img src="assets/icons/rupee-indian.png" alt="" height="20px" />
       </div>
       <div className="action">
-        <img src="assets/icons/delete.png" alt="" />
+        <img src="assets/icons/delete.png" alt="" onClick={()=> removeFromCart()} />
       </div>
     </div>
   );
