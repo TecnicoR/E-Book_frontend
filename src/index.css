@@ -23,3 +23,8 @@ body {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 } */
+
+.errorMessage{
+  color: red;
+  margin-top: 2px;
+}

@@ -170,7 +170,7 @@ function Signup() {
           setResponse(res);
           setStatus(4);
           toast.success("Success, Now you can order");
-          store.dispatch(userActions.updateUserData(res))
+          // store.dispatch(userActions.updateUserData(res))
           navigate("/");
         })
         .catch((err) => {
