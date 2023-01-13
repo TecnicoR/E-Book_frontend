@@ -111,7 +111,7 @@ function Signup() {
 
   function sendOtp() {
     // console.log("data ", data);
-    if (validate()) {
+    if (true) {
       setLoader(true);
       createUser(data)
         .then((res) => {
@@ -136,7 +136,7 @@ function Signup() {
   function verifyOtp() {
     console.log("data ", data);
     setErrors(null)
-    if (validate()) {
+    if (true) {
       setLoader(true);
       getVerification(response?.id, data)
         .then((res) => {
@@ -160,7 +160,7 @@ function Signup() {
 
   function createAccount() {
     // console.log("data ", data);
-    if (validate()) {
+    if (true) {
       setLoader(true);
       confirmAccount(response?.id, data)
         .then((res) => {

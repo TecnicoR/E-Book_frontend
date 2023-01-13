@@ -37,7 +37,9 @@ function Login() {
           console.log(res);
           navigate("/");
         })
-        .catch((err) => {})
+        .catch((err) => {
+          toast.error(err?.response?.data?.message);
+        })
         .finally(() => {
           setLoader(false);
         });

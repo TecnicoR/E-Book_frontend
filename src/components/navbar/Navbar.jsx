@@ -47,7 +47,7 @@ function Navbar() {
                 {/* <i class="fa-sharp fa-solid fa-user"></i> */}
               </Link>
             </li>
-            {false ? (
+            {localStorage.getItem("auth") ? (
               ""
             ) : (
               <>

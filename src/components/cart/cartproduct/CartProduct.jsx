@@ -2,25 +2,25 @@ import React from "react";
 import "./cartproduct.css";
 import ReactStars from "react-rating-stars-component";
 
-function CartProduct() {
+function CartProduct({product}) {
   return (
-    <div className="cart-product">
+    <div key={product?.id} className="cart-product">
       <div className="image">
-        <img src="assets/images/book-image.jpg" alt="" />
+        <img src={product?.imageUrl} alt="" />
       </div>
       <div className="name">
-        <h3>Physhdsd</h3>
+        <h3>{product?.name}</h3>
         <ReactStars
           count={5}
           size={24}
-          value={4}
+          value={product?.averageRatings}
           activeColor="#0000FF"
           edit={false}
           classNames="ratings"
         />
       </div>
       <div className="price">
-        <h3>12676</h3>
+        <h3>{product?.price}</h3>
         <img src="assets/icons/rupee-indian.png" alt="" height="20px" />
       </div>
       <div className="action">

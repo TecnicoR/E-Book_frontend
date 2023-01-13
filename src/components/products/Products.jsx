@@ -31,7 +31,7 @@ function Products() {
       navigate("/login")
     }
     else
-      addProductToCart(id)
+      addProductToCart(localStorage.getItem("userId"), id)
         .then((res) => {
           toast.success("Product added successfully");
         })
