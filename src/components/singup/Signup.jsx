@@ -7,6 +7,8 @@ import {
   createUser,
   getVerification,
 } from "../../services/UserService";
+import store from "../../store";
+import { userActions } from "../../store/actions";
 import Loader from "../loader/Loader";
 import "./signup.css";
 function Signup() {
@@ -109,7 +111,7 @@ function Signup() {
 
   function sendOtp() {
     // console.log("data ", data);
-    // if (validate()) {
+    if (validate()) {
       setLoader(true);
       createUser(data)
         .then((res) => {
@@ -128,13 +130,13 @@ function Signup() {
         .finally(() => {
           setLoader(false);
         });
-    // }
+    }
   }
 
   function verifyOtp() {
     console.log("data ", data);
     setErrors(null)
-    // if (validate()) {
+    if (validate()) {
       setLoader(true);
       getVerification(response?.id, data)
         .then((res) => {
@@ -153,12 +155,12 @@ function Signup() {
         .finally(() => {
           setLoader(false);
         });
-    // }
+    }
   }
 
   function createAccount() {
     // console.log("data ", data);
-    // if (validate()) {
+    if (validate()) {
       setLoader(true);
       confirmAccount(response?.id, data)
         .then((res) => {
@@ -168,6 +170,7 @@ function Signup() {
           setResponse(res);
           setStatus(4);
           toast.success("Success, Now you can order");
+          store.dispatch(userActions.updateUserData(res))
           navigate("/");
         })
         .catch((err) => {
@@ -178,7 +181,7 @@ function Signup() {
         .finally(() => {
           setLoader(false);
         });
-    // }
+    }
   }
 
   function renderEmailPhone() {
